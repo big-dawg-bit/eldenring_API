@@ -27,7 +27,7 @@ npm run dev        # Development (auto-reload)
 
 ---
 
-## ✨ Features
+## Features
 
 - **CRUD Operations** - Full Create, Read, Update, Delete for Bosses and News
 - **Advanced Validation** - Custom rules with detailed error messages
@@ -71,7 +71,7 @@ npm run dev        # Development (auto-reload)
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 - Node.js / Express.js
 - SQLite3
