@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elden Ring API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .get { background: #28a745; color: white; }
+        .post { background: #007bff; color: white; }
+        .put { background: #ffc107; color: black; }
+        .delete { background: #dc3545; color: white; }
+
+        .url {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .params {
+            margin-top: 15px;
+        }
+
+        .params h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .param-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .param-list li {
+            padding: 8px;
+            background: white;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .param-name {
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .param-type {
+            color: #007bff;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .required {
+            color: #dc3545;
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+
+        .example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .example pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .response {
+            margin-top: 15px;
+        }
+
+        .base-url {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .base-url code {
+            font-size: 1.2em;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚔️ Elden Ring API</h1>
+        <p class="subtitle">REST API for Elden Ring Community Website</p>
+
+        <div class="base-url">
+            <strong>Base URL:</strong> <code>http://localhost:3000</code>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> All endpoints return JSON responses. Make sure to set <code>Content-Type: application/json</code> in your request headers when sending data.
+        </div>
+
+        <h2>🐉 Bosses Endpoints</h2>
+
+        <div class="endpoint">
+            <div>
+                <span class="method get">GET</span>
+                <span class="url">/api/bosses</span>
+            </div>
+            <p class="description">Get all bosses with optional pagination and search</p>
+            
+            <div class="params">
+                <h4>Query Parameters (Optional):</h4>
+                <ul class="param-list">
+                    <li>
+                        <span class="param-name">limit</span>
+                        <span class="param-type">integer</span>
+                        - Number of items to return (default: 10, max: 100)
+                    </li>
+                    <li>
+                        <span class="param-name">offset</span>
+                        <span class="param-type">integer</span>
+                        - Number of items to skip (default: 0)
+                    </li>
+                    <li>
+                        <span class="param-name">search</span>
+                        <span class="param-type">string</span>
+                        - Search by boss name or location
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>GET http://localhost:3000/api/bosses?limit=5&offset=0&search=malenia</pre>
+            </div>
+
+            <div class="response">
+                <h4>Example Response:</h4>
+                <div class="example">
+<pre>{
+  "data": [
+    {
+      "id": 1,
+      "name": "Malenia, Blade of Miquella",
+      "title": "Goddess of Rot",
+      "description": "...",
+      "location": "Elphael, Brace of the Haligtree",
+      "difficulty": 5,
+      "health": 33251,
+      "drops": "Remembrance of the Rot Goddess",
+      "order": 0,
+      "image": null
+    }
+  ],
+  "pagination": {
+    "total": 6,
+    "limit": 5,
+    "offset": 0,
+    "hasMore": true
+  }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method get">GET</span>
+                <span class="url">/api/bosses/:id</span>
+            </div>
+            <p class="description">Get a single boss by ID</p>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>GET http://localhost:3000/api/bosses/1</pre>
+            </div>
+
+            <div class="response">
+                <h4>Example Response:</h4>
+                <div class="example">
+<pre>{
+  "id": 1,
+  "name": "Malenia, Blade of Miquella",
+  "title": "Goddess of Rot",
+  "description": "...",
+  "location": "Elphael, Brace of the Haligtree",
+  "difficulty": 5,
+  "health": 33251,
+  "drops": "Remembrance of the Rot Goddess",
+  "order": 0,
+  "image": null
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method post">POST</span>
+                <span class="url">/api/bosses</span>
+            </div>
+            <p class="description">Create a new boss</p>
+
+            <div class="params">
+                <h4>Request Body:</h4>
+                <ul class="param-list">
+                    <li>
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="required">*required</span>
+                        - Boss name (2-255 characters, letters only)
+                    </li>
+                    <li>
+                        <span class="param-name">title</span>
+                        <span class="param-type">string</span>
+                        - Boss title (max 255 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">description</span>
+                        <span class="param-type">string</span>
+                        <span class="required">*required</span>
+                        - Description (min 10 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">location</span>
+                        <span class="param-type">string</span>
+                        - Boss location (max 255 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">difficulty</span>
+                        <span class="param-type">integer</span>
+                        <span class="required">*required</span>
+                        - Difficulty level (1-5)
+                    </li>
+                    <li>
+                        <span class="param-name">health</span>
+                        <span class="param-type">integer</span>
+                        - Boss health points
+                    </li>
+                    <li>
+                        <span class="param-name">drops</span>
+                        <span class="param-type">string</span>
+                        - Item drops (max 255 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">order</span>
+                        <span class="param-type">integer</span>
+                        - Display order (default: 0)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+<pre>POST http://localhost:3000/api/bosses
+Content-Type: application/json
+
+{
+  "name": "Radahn",
+  "title": "Starscourge",
+  "description": "A powerful demigod...",
+  "location": "Redmane Castle",
+  "difficulty": 5,
+  "health": 9572,
+  "drops": "Remembrance of the Starscourge",
+  "order": 4
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method put">PUT</span>
+                <span class="url">/api/bosses/:id</span>
+            </div>
+            <p class="description">Update an existing boss</p>
+
+            <div class="params">
+                <h4>Request Body:</h4>
+                <p>Same fields as POST endpoint</p>
+            </div>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+<pre>PUT http://localhost:3000/api/bosses/1
+Content-Type: application/json
+
+{
+  "name": "Malenia, Blade of Miquella",
+  "title": "Goddess of Rot - Updated",
+  "description": "Updated description...",
+  "location": "Elphael, Brace of the Haligtree",
+  "difficulty": 5,
+  "health": 33251,
+  "drops": "Remembrance of the Rot Goddess",
+  "order": 1
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method delete">DELETE</span>
+                <span class="url">/api/bosses/:id</span>
+            </div>
+            <p class="description">Delete a boss</p>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>DELETE http://localhost:3000/api/bosses/1</pre>
+            </div>
+
+            <div class="response">
+                <h4>Example Response:</h4>
+                <div class="example">
+<pre>{
+  "message": "Boss deleted successfully"
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <h2>📰 News Endpoints</h2>
+
+        <div class="endpoint">
+            <div>
+                <span class="method get">GET</span>
+                <span class="url">/api/news</span>
+            </div>
+            <p class="description">Get all news with optional pagination and search</p>
+            
+            <div class="params">
+                <h4>Query Parameters (Optional):</h4>
+                <ul class="param-list">
+                    <li>
+                        <span class="param-name">limit</span>
+                        <span class="param-type">integer</span>
+                        - Number of items to return (default: 10, max: 100)
+                    </li>
+                    <li>
+                        <span class="param-name">offset</span>
+                        <span class="param-type">integer</span>
+                        - Number of items to skip (default: 0)
+                    </li>
+                    <li>
+                        <span class="param-name">search</span>
+                        <span class="param-type">string</span>
+                        - Search by title or content
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>GET http://localhost:3000/api/news?limit=5&offset=0</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method get">GET</span>
+                <span class="url">/api/news/:id</span>
+            </div>
+            <p class="description">Get a single news article by ID</p>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>GET http://localhost:3000/api/news/1</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method post">POST</span>
+                <span class="url">/api/news</span>
+            </div>
+            <p class="description">Create a new news article</p>
+
+            <div class="params">
+                <h4>Request Body:</h4>
+                <ul class="param-list">
+                    <li>
+                        <span class="param-name">title</span>
+                        <span class="param-type">string</span>
+                        <span class="required">*required</span>
+                        - Article title (5-255 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">content</span>
+                        <span class="param-type">string</span>
+                        <span class="required">*required</span>
+                        - Article content (min 20 characters)
+                    </li>
+                    <li>
+                        <span class="param-name">user_id</span>
+                        <span class="param-type">integer</span>
+                        <span class="required">*required</span>
+                        - ID of the user creating the article
+                    </li>
+                    <li>
+                        <span class="param-name">publication_date</span>
+                        <span class="param-type">string (ISO 8601)</span>
+                        - Publication date (default: current date)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+<pre>POST http://localhost:3000/api/news
+Content-Type: application/json
+
+{
+  "title": "New DLC Announced",
+  "content": "FromSoftware has announced...",
+  "user_id": 1,
+  "publication_date": "2026-01-04T00:00:00.000Z"
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method put">PUT</span>
+                <span class="url">/api/news/:id</span>
+            </div>
+            <p class="description">Update an existing news article</p>
+
+            <div class="params">
+                <h4>Request Body:</h4>
+                <p>Same fields as POST endpoint (except user_id cannot be changed)</p>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div>
+                <span class="method delete">DELETE</span>
+                <span class="url">/api/news/:id</span>
+            </div>
+            <p class="description">Delete a news article</p>
+
+            <div class="example">
+                <strong>Example Request:</strong>
+                <pre>DELETE http://localhost:3000/api/news/1</pre>
+            </div>
+        </div>
+
+        <h2>⚠️ Error Responses</h2>
+
+        <div class="endpoint">
+            <h4>Validation Error (400):</h4>
+            <div class="example">
+<pre>{
+  "error": "Validation failed",
+  "details": [
+    {
+      "msg": "Name is required",
+      "param": "name",
+      "location": "body"
+    }
+  ]
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h4>Not Found (404):</h4>
+            <div class="example">
+<pre>{
+  "error": "Boss not found"
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h4>Server Error (500):</h4>
+            <div class="example">
+<pre>{
+  "error": "Database error",
+  "details": "..."
+}</pre>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Author:</strong> Arnaud Raspe<br>
+            <strong>Project:</strong> Elden Ring Community API<br>
+            <strong>Version:</strong> 1.0.0<br>
+            <strong>Technology:</strong> Node.js 20 + Express.js + SQLite
+        </div>
+    </div>
+</body>
+</html>
